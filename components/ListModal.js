@@ -13,7 +13,9 @@ const ListModal = props => {
   return (
     <Formik
       initialValues={{ title: '', description: '' }}
-      onSubmit={values => props.setList(values)}
+      onSubmit={values => {
+        props.setIsModalVisible(false)
+        props.setList(values)}}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
         <View>
