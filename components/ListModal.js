@@ -1,6 +1,5 @@
 import React from "react"
 import { 
-  Text,
   StyleSheet,
   View,
   Button,
@@ -10,7 +9,7 @@ import { TextInput } from "react-native-gesture-handler"
 import { Formik } from 'formik'
 
 const ListModal = props => {
-  console.log(props)
+  // console.log(props)
   return (
     <Formik
       initialValues={{ title: '', description: '' }}
@@ -30,7 +29,11 @@ const ListModal = props => {
             value={values.description}
             placeholder="Description"
           />
-          <Button onPress={handleSubmit} title="Submit" />
+          <Button 
+            onPress={handleSubmit}
+            title="Submit" 
+            disabled={values.title.length < 5 ? true : false}
+          />
         </View>
       )}
     </Formik>

@@ -8,9 +8,9 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
 
 import ListModal from './components/ListModal'
+import ListCard from './components/ListCard'
 
 export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -21,20 +21,6 @@ export default function App() {
     setList([...list, e])
   }
 
-  const ShowList = ({ item }) => {
-    // console.log(item)
-    return (
-      <View style={styles.item}>
-        <View style={styles.itemTitle}>
-          <Text>{item.title}</Text>
-        </View>
-        <View style={styles.itemDescription}>
-          <Text>{item.description}</Text>
-        </View>
-      </View>
-    )
-  }
-
   console.log(list)
   return (
     <View style={styles.container}>
@@ -43,7 +29,7 @@ export default function App() {
           animationType="slide"
           transparent={true}
         >
-          <ListModal setList={handleSetList} />
+          <ListModal setList={handleSetList} setIsModalVisible={setIsModalVisible} />
           <TouchableOpacity 
             onPress={() => setIsModalVisible(false)}
           >
@@ -55,22 +41,10 @@ export default function App() {
         title="Add a list" 
         onPress={() => setIsModalVisible(true)}
       />
-      <View>
-        <View style={styles.list}>
-          <View style={styles.listtitle}>
-            <Text>Title</Text>
-          </View>
-          <View style={styles.listDescription}>
-            <Text>Description</Text>
-          </View>
-        </View>
-        {list &&
-          <FlatList data={list} renderItem={ShowList} />
-        }
-      </View>
+      <ListCard list={list} />
       <StatusBar style="auto" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -80,32 +54,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  list: {
-    margin: 10,
-    flexDirection: 'row',
-  },
-  listtitle: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    width: 200,
-    marginHorizontal: 5,
-  },
-  listDescription: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    width: 200,
-    marginHorizontal: 5,
-  },
-  item: {
-    marginHorizontal: 10,
-    flexDirection: 'row',
-  },
-  itemTitle: {
-    width: 200,
-    marginHorizontal: 5,
-  },
-  itemDescription: {
-    width: 200,
-    marginHorizontal: 5,
-  },
-});
+})
